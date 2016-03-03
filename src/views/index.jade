@@ -1,4 +1,10 @@
 extends layout
 
 block content
-  p Hello
+  .row
+    .col-md-12
+      form(action="video")
+        .form-group
+          label(for="remix") Remix URL
+          input(type="text" class="form-control" id="remix" placeholder="URL")
+        button(type="submit" class="btn btn-primary") Process

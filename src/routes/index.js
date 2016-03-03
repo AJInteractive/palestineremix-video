@@ -1,9 +1,8 @@
 import express from 'express';
 const router = express.Router();
 
-/* GET home page. */
 router.get('/', (req, res) => {
-  res.render('index', { title: 'palestineremix-video' });
+  res.render('index', { title: 'PalestineRemix Video' });
 });
 
 module.exports = router;
