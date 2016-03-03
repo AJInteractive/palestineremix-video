@@ -1,7 +1,7 @@
 lib/
 *.css
 *.css.map
-src/public/media/
+src/public/media/*.mp4
 
 # Created by https://www.gitignore.io/api/node,linux,osx,elasticbeanstalk
 
