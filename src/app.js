@@ -5,7 +5,8 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
-import routes from './routes/index';
+import index from './routes/index';
+import video from './routes/video';
 
 const app = express();
 
@@ -26,7 +27,8 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, '../src/public')));
 
-app.use('/', routes);
+app.use('/', index);
+app.use('/video', video);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

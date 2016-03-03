@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  .row
+    .col-md-12
+      ul.media-list
+        each segment in segments
+          li.media
+            .media-left
+              a
+                img.media-object(src="http://interactive.aljazeera.com/aje/PalestineRemix/transcripts/images/#{segment.id}/#{lang}/p/img#{Math.floor(segment.start / 1000)}.jpg")
+            .media-body
+              h4.media-heading= segment.title
+                span= ' [' + segment.startTC + ' – ' + segment.endTC + ']'

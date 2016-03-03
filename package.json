@@ -24,6 +24,7 @@
     "morgan": "~1.7.0",
     "node-sass-middleware": "0.9.7",
     "request-json": "^0.5.5",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "url-parse": "^1.0.5"
   }
 }
