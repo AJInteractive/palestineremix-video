@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 
 import index from './routes/index';
 import video from './routes/video';
+import compose from './routes/compose';
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, '../src/public')));
 
 app.use('/', index);
 app.use('/video', video);
+app.use('/compose', compose);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

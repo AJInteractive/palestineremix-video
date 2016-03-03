@@ -50,6 +50,7 @@ router.get('/', (req, res) => {
   const aj = url.pathname.split('/')[1];
   const lang = aj.charAt(2).toUpperCase();
   const segments = [];
+  const videoSegments = [lang];
 
   for (const segment of url.hash.split('/')) {
     const [id, start, length] = segment.split(/:|,/);
@@ -64,6 +65,8 @@ router.get('/', (req, res) => {
       endTC:   timecode(parseInt(start, 10) + parseInt(length, 10)),
       text:    getText(id, lang, parseInt(start, 10), parseInt(start, 10) + parseInt(length, 10)),
     });
+
+    videoSegments.push(`${id}~${parseInt(start, 10)}-${parseInt(length, 10)}`);
   }
 
 
@@ -73,6 +76,7 @@ router.get('/', (req, res) => {
     aj,
     lang,
     segments,
+    video: videoSegments.join('_'),
   });
 });
 
