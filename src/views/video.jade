@@ -3,6 +3,10 @@ extends layout
 block content
   .row
     .col-md-12
+      video(poster="/images/#{lang}/poster.jpg" controls)
+        source(type="video/mp4" src="http://player.vimeo.com/external/109585525.mobile.mp4?s=0e9cf2efcd029f38f4ac24adf0e04527&amp;629966176347")
+  .row
+    .col-md-12
       ul.media-list
         each segment in segments
           li.media
@@ -12,3 +16,4 @@ block content
             .media-body
               h4.media-heading= segment.title
                 span= ' [' + segment.startTC + ' – ' + segment.endTC + ']'
+              p!= segment.text
