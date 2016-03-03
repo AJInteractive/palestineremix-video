@@ -10,7 +10,7 @@ import { VIDEOS } from '../data/data.js';
 const router = express.Router();
 // ffmpeg.setFfmpegPath(ffstatic.path);
 
-// E_1~118001-5233_1~200701-3200_22~82012-8613_24~67207-11187
+// E_1~118001-5233_1~200701-3200_22~82012-8613_24~67207-11187_.mp4
 router.get('/:edl', (req, res) => {
   let lang;
   const segments = [];
@@ -65,7 +65,7 @@ router.get('/:edl', (req, res) => {
 
     // ff.audioCodec('copy').videoCodec('copy')
       // .mergeToFile(`/tmp/${req.params.edl}.mp4`)
-    ff.output(`/tmp/${req.params.edl}.mp4`);
+    ff.output(path.join(__dirname, `../../src/public/media`, `${req.params.edl}`));
 
     ff.on('start', (commandLine) => {
       console.log('Spawned Ffmpeg with command: ' + commandLine);
@@ -79,6 +79,7 @@ router.get('/:edl', (req, res) => {
     ff.on('end', () => {
       console.log('Transcoding succeeded !');
       // callback(null, segment);
+      res.redirect(`/media/${req.params.edl}?done`);
     });
 
     ff.run();

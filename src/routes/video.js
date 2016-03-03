@@ -69,6 +69,7 @@ router.get('/', (req, res) => {
     videoSegments.push(`${id}~${parseInt(start, 10)}-${parseInt(length, 10)}`);
   }
 
+  videoSegments.push('.mp4');
 
   res.render('video', {
     title: 'PalestineRemix Video',

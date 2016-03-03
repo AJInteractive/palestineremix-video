@@ -3,8 +3,13 @@ extends layout
 block content
   .row
     .col-md-12
-      video(poster="/images/#{lang}/poster.jpg" controls)
-        source(type="video/mp4" src="/compose/#{video}")
+      video(poster="/images/#{lang}/poster.jpg" controls autoplay)
+        source(type="video/mp4" src="/media/#{video}")
+      script.
+        var start = new Date().getTime();
+      .alert.alert-info
+        span loading…
+        a.btn.btn-primary.hidden(href="/media/#{video}" target="_new" style="margin: 0 25px") Download
   .row
     .col-md-12
       ul.media-list
@@ -17,3 +22,9 @@ block content
               h4.media-heading= segment.title
                 span= ' [' + segment.startTC + ' – ' + segment.endTC + ']'
               p!= segment.text
+
+  script.
+    $('video').on('loadedmetadata', function(e) {
+      $('.alert span').text('Video loaded in ' + (new Date().getTime() - start) + 'ms');
+      $('a.btn.btn-primary').removeClass('hidden');
+    });

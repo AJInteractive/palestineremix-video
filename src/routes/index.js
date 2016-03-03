@@ -2,7 +2,10 @@ import express from 'express';
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.render('index', { title: 'PalestineRemix Video' });
+  res.render('index', {
+    title: 'PalestineRemix Video',
+    lang:  'E',
+  });
 });
 
 module.exports = router;

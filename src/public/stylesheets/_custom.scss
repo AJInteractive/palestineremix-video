@@ -1,5 +1,13 @@
 body {
   background-color: #D4E0E4;
+
+  &.A {
+    direction: rtl;
+
+    .media-body {
+      padding-right: 2em;
+    }
+  }
 }
 
 .squares {
