@@ -2,13 +2,13 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import ffmpeg from 'fluent-ffmpeg';
-import ffstatic from 'ffmpeg-static';
 import async from 'async';
 
 import { VIDEOS } from '../data/data.js';
 
 const router = express.Router();
-// ffmpeg.setFfmpegPath(ffstatic.path);
+
+if (process.env.ffmpeg) ffmpeg.setFfmpegPath(process.env.ffmpeg);
 
 // E_1~118001-5233_1~200701-3200_22~82012-8613_24~67207-11187_.mp4
 router.get('/:edl', (req, res) => {
@@ -55,16 +55,12 @@ router.get('/:edl', (req, res) => {
     // ffmpeg -i "concat:part1.ts|part2.ts|part3.ts" -acodec copy -vcodec copy output.mp4
     console.log(results);
     const ff = ffmpeg();
-    let input = [];
+    const input = [];
     for (const segment of results) {
-      // ff.input(`/tmp/${lang}_${segment.id}~${segment.start}-${segment.length}.mp4`);
       input.push(`/tmp/${lang}_${segment.id}~${segment.start}-${segment.length}.ts`);
     }
 
     ff.input(`concat:${input.join('|')}`);
-
-    // ff.audioCodec('copy').videoCodec('copy')
-      // .mergeToFile(`/tmp/${req.params.edl}.mp4`)
     ff.output(path.join(__dirname, `../../src/public/media`, `${req.params.edl}`));
 
     ff.on('start', (commandLine) => {
@@ -73,12 +69,10 @@ router.get('/:edl', (req, res) => {
 
     ff.on('error', (err, stdout, stderr) => {
       console.log('Cannot process video: ' + err.message);
-      // callback(err, null);
     });
 
     ff.on('end', () => {
       console.log('Transcoding succeeded !');
-      // callback(null, segment);
       res.redirect(`/media/${req.params.edl}?done`);
     });
 

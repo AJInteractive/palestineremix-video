@@ -23,7 +23,6 @@
     "dom-serializer": "^0.1.0",
     "entities": "^1.1.1",
     "express": "~4.13.1",
-    "ffmpeg-static": "^1.0.0",
     "fluent-ffmpeg": "^2.0.1",
     "htmlparser2": "^3.9.0",
     "jade": "~1.11.0",

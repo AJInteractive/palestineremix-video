@@ -1,5 +1,7 @@
 /*eslint-disable */
 
+// from palestineremix-mobile
+
 const TITLES = {
   E: [
     "Going against the grain",
