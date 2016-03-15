@@ -53,8 +53,10 @@ router.get('/', (req, res) => {
   const videoSegments = [lang];
 
   for (const segment of url.hash.split('/')) {
-    const [id, start, length] = segment.split(/:|,/);
+    let [id, start, length] = segment.split(/:|,/);
     if (isNaN(id)) continue;
+    if (isNaN(start)) continue;
+    if (isNaN(length)) length = 1e4;
 
     segments.push({
       id,
