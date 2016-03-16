@@ -32,7 +32,6 @@ app.use('/download', express.static(path.join(__dirname, '../src/public'), {
     res.attachment(path);
   },
 }));
-app.use('/static', express.static('public'));
 
 app.use('/', index);
 app.use('/video', video);
