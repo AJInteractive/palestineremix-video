@@ -27,6 +27,12 @@ app.use(require('node-sass-middleware')({
   sourceMap:      true,
 }));
 app.use(express.static(path.join(__dirname, '../src/public')));
+app.use('/download', express.static(path.join(__dirname, '../src/public'), {
+  setHeaders: (res, path) => {
+    res.attachment(path);
+  },
+}));
+app.use('/static', express.static('public'));
 
 app.use('/', index);
 app.use('/video', video);

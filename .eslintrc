@@ -20,7 +20,7 @@
       "builtinGlobals": false,
       "hoist": "functions",
       "allow": [
-        "err", "res", "req"
+        "err", "res", "req", "path"
       ]
     }],
     "max-len": [2, 100, 2, {

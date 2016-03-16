@@ -73,7 +73,12 @@ router.get('/:edl', (req, res) => {
 
     ff.on('end', () => {
       console.log('Transcoding succeeded !');
-      res.redirect(`/media/${req.params.edl}?done`);
+
+      if (req.query.download) {
+        res.redirect(`/download/${req.params.edl}?done`);
+      } else {
+        res.redirect(`/media/${req.params.edl}?done`);
+      }
     });
 
     ff.run();
