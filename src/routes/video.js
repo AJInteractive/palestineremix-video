@@ -51,9 +51,9 @@ router.get('/', (req, res) => {
 
   if (url.hostname.toLowerCase().indexOf('bit.ly') > -1) {
     bitly.expand(req.query.remix).then((response) => {
-      console.log(response);
-      return res.send(response);
-      // return res.redirect(`?remix=${encodeURIComponent(response.long_url)}`);
+      // console.log(response);
+      // return res.send(response);
+      return res.redirect(`?remix=${encodeURIComponent(response.long_url)}`);
     }, (error) => {
       console.log(error);
       return res.send(error);
