@@ -54,7 +54,7 @@ router.get('/', (req, res) => {
       // console.log(response);
       // return res.send(response);
       let download = '';
-      if (req.query.download) download = '?download=true';
+      if (req.query.download) download = '&download=true';
       return res.redirect(`?remix=${encodeURIComponent(response.data.expand[0].long_url)}${download}`);
     }, (error) => {
       console.log(error);
