@@ -53,7 +53,9 @@ router.get('/', (req, res) => {
     bitly.expand(req.query.remix).then((response) => {
       // console.log(response);
       // return res.send(response);
-      return res.redirect(`?remix=${encodeURIComponent(response.data.expand[0].long_url)}`);
+      let download = '';
+      if (req.query.download) download = '?download=true';
+      return res.redirect(`?remix=${encodeURIComponent(response.data.expand[0].long_url)}${download}`);
     }, (error) => {
       console.log(error);
       return res.send(error);
@@ -86,7 +88,7 @@ router.get('/', (req, res) => {
     videoSegments.push('.mp4');
 
     if (req.query.download) {
-      res.redirect(`/download/${videoSegments.join('_')}`);
+      res.redirect(`/media/${videoSegments.join('_')}?download=true`);
     } else {
       res.render('video', {
         title: 'PalestineRemix Video',
