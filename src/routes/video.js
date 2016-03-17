@@ -53,7 +53,7 @@ router.get('/', (req, res) => {
     bitly.expand(req.query.remix).then((response) => {
       // console.log(response);
       // return res.send(response);
-      return res.redirect(`?remix=${encodeURIComponent(response.long_url)}`);
+      return res.redirect(`?remix=${encodeURIComponent(response.data.expand[0].long_url)}`);
     }, (error) => {
       console.log(error);
       return res.send(error);
