@@ -3,9 +3,11 @@ import parse from 'url-parse';
 import cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
+import Bitly from 'bitly';
 
 import { TITLES, VIDEOS } from '../data/data.js';
 
+const bitly = new Bitly('7841e0830831228bd9d758134437a0d8e24a75e4');
 
 const router = express.Router();
 
@@ -46,6 +48,20 @@ const getText = (id, lang, start, end) => {
 
 router.get('/', (req, res) => {
   const url = parse(req.query.remix);
+
+  if (! url.pathname.split('/').length > 1 || url.hostname.toLowerCase() === 'bit.ly') {
+    const code = url.pathname.split('/').pop();
+
+    bitly.expand(req.query.remix, (response) => {
+      console.log(response);
+      // return res.send(response);
+      const url = response.long_url;
+      return res.redirect(`?remix=${encodeURIComponent(url)}`);
+    }, (error) => {
+      console.log(error);
+      return res.send(error);
+    });
+  }
 
   const aj = url.pathname.split('/')[1];
   const lang = aj.charAt(2).toUpperCase();
