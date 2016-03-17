@@ -49,9 +49,7 @@ const getText = (id, lang, start, end) => {
 router.get('/', (req, res) => {
   const url = parse(req.query.remix);
 
-  if (! url.pathname.split('/').length > 1 || url.hostname.toLowerCase() === 'bit.ly') {
-    const code = url.pathname.split('/').pop();
-
+  if (url.hostname.toLowerCase() === 'bit.ly') {
     bitly.expand(req.query.remix, (response) => {
       console.log(response);
       // return res.send(response);
