@@ -49,7 +49,7 @@ const getText = (id, lang, start, end) => {
 router.get('/', (req, res) => {
   const url = parse(req.query.remix);
 
-  if (url.hostname.toLowerCase() === 'bit.ly') {
+  if (url.hostname.toLowerCase().indexOf('bit.ly') > -1) {
     bitly.expand(req.query.remix, (response) => {
       console.log(response);
       // return res.send(response);
@@ -59,42 +59,42 @@ router.get('/', (req, res) => {
       console.log(error);
       return res.send(error);
     });
-  }
+  } else {
+    const aj = url.pathname.split('/')[1];
+    const lang = aj.charAt(2).toUpperCase();
+    const segments = [];
+    const videoSegments = [lang];
 
-  const aj = url.pathname.split('/')[1];
-  const lang = aj.charAt(2).toUpperCase();
-  const segments = [];
-  const videoSegments = [lang];
+    for (const segment of url.hash.split('/')) {
+      let [id, start, length] = segment.split(/:|,/);
+      if (isNaN(id)) continue;
+      if (isNaN(start)) continue;
+      if (isNaN(length)) length = 1e4;
 
-  for (const segment of url.hash.split('/')) {
-    let [id, start, length] = segment.split(/:|,/);
-    if (isNaN(id)) continue;
-    if (isNaN(start)) continue;
-    if (isNaN(length)) length = 1e4;
+      segments.push({
+        id,
+        start,
+        length,
+        title:   TITLES[lang][id],
+        startTC: timecode(parseInt(start, 10)),
+        endTC:   timecode(parseInt(start, 10) + parseInt(length, 10)),
+        text:    getText(id, lang, parseInt(start, 10), parseInt(start, 10) + parseInt(length, 10)),
+      });
 
-    segments.push({
-      id,
-      start,
-      length,
-      title:   TITLES[lang][id],
-      startTC: timecode(parseInt(start, 10)),
-      endTC:   timecode(parseInt(start, 10) + parseInt(length, 10)),
-      text:    getText(id, lang, parseInt(start, 10), parseInt(start, 10) + parseInt(length, 10)),
+      videoSegments.push(`${id}~${parseInt(start, 10)}-${parseInt(length, 10)}`);
+    }
+
+    videoSegments.push('.mp4');
+
+    res.render('video', {
+      title: 'PalestineRemix Video',
+      url,
+      aj,
+      lang,
+      segments,
+      video: videoSegments.join('_'),
     });
-
-    videoSegments.push(`${id}~${parseInt(start, 10)}-${parseInt(length, 10)}`);
   }
-
-  videoSegments.push('.mp4');
-
-  res.render('video', {
-    title: 'PalestineRemix Video',
-    url,
-    aj,
-    lang,
-    segments,
-    video: videoSegments.join('_'),
-  });
 });
 
 module.exports = router;
