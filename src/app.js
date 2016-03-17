@@ -27,7 +27,7 @@ app.use(require('node-sass-middleware')({
   sourceMap:      true,
 }));
 app.use(express.static(path.join(__dirname, '../src/public')));
-app.use('/download', express.static(path.join(__dirname, '../src/public'), {
+app.use('/download', express.static(path.join(__dirname, '../src/public/media'), {
   setHeaders: (res, path) => {
     res.attachment(path);
   },
