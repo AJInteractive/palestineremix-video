@@ -85,14 +85,18 @@ router.get('/', (req, res) => {
 
     videoSegments.push('.mp4');
 
-    res.render('video', {
-      title: 'PalestineRemix Video',
-      url,
-      aj,
-      lang,
-      segments,
-      video: videoSegments.join('_'),
-    });
+    if (req.query.download) {
+      res.redirect(`/download/${videoSegments.join('_')}`);
+    } else {
+      res.render('video', {
+        title: 'PalestineRemix Video',
+        url,
+        aj,
+        lang,
+        segments,
+        video: videoSegments.join('_'),
+      });
+    }
   }
 });
 
