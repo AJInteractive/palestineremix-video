@@ -47,7 +47,11 @@ const getText = (id, lang, start, end) => {
 };
 
 router.get('/', (req, res) => {
-  const url = parse(req.query.remix);
+  let url = parse(req.query.remix);
+  if (url.pathname.index0f(',') === -1) {
+    const [id, start, stop] = url.pathname.split('/');
+    url.pathname = `${id}:${parseInt(start, 10)},${parseInt(stop, 10) - parseInt(start, 10)}`;
+  }
 
   if (url.hostname.toLowerCase().indexOf('bit.ly') > -1) {
     bitly.expand(req.query.remix).then((response) => {
