@@ -49,7 +49,7 @@ const getText = (id, lang, start, end) => {
 router.get('/', (req, res) => {
   const url = parse(req.query.remix);
   let hash = url.hash + '';
-  if (hash.index0f(',') === -1) {
+  if (hash.indexOf(',') === -1) {
     const [id, start, stop] = hash.split('/');
     hash = `${id}:${parseInt(start, 10)},${parseInt(stop, 10) - parseInt(start, 10)}`;
   }
