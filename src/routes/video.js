@@ -47,10 +47,11 @@ const getText = (id, lang, start, end) => {
 };
 
 router.get('/', (req, res) => {
-  let url = parse(req.query.remix);
-  if (url.pathname.index0f(',') === -1) {
-    const [id, start, stop] = url.pathname.split('/');
-    url.pathname = `${id}:${parseInt(start, 10)},${parseInt(stop, 10) - parseInt(start, 10)}`;
+  const url = parse(req.query.remix);
+  let hash = url.hash + '';
+  if (hash.index0f(',') === -1) {
+    const [id, start, stop] = hash.split('/');
+    hash = `${id}:${parseInt(start, 10)},${parseInt(stop, 10) - parseInt(start, 10)}`;
   }
 
   if (url.hostname.toLowerCase().indexOf('bit.ly') > -1) {
@@ -70,7 +71,7 @@ router.get('/', (req, res) => {
     const segments = [];
     const videoSegments = [lang];
 
-    for (const segment of url.hash.split('/')) {
+    for (const segment of hash.split('/')) {
       let [id, start, length] = segment.split(/:|,/);
       if (isNaN(id)) continue;
       if (isNaN(start)) continue;
