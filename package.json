@@ -20,7 +20,7 @@
     "cheerio": "^0.20.0",
     "cookie-parser": "~1.4.1",
     "css-select": "^1.2.0",
-    "debug": "~2.2.0",
+    "debug": "~2.6.9",
     "dom-serializer": "^0.1.0",
     "entities": "^1.1.1",
     "express": "~4.13.1",
