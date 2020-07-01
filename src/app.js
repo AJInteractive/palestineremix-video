@@ -19,13 +19,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(require('node-sass-middleware')({
-//   src:            path.join(__dirname, '../src/public'),
-//   dest:           path.join(__dirname, '../src/public'),
-//   debug:          true,
-//   indentedSyntax: true,
-//   sourceMap:      true,
-// }));
+app.use(require('node-sass-middleware')({
+  src:            path.join(__dirname, '../src/public'),
+  dest:           path.join(__dirname, '../src/public'),
+  debug:          true,
+  indentedSyntax: true,
+  sourceMap:      true,
+}));
 app.use(express.static(path.join(__dirname, '../src/public')));
 app.use('/download', express.static(path.join(__dirname, '../src/public/media'), {
   setHeaders: (res, path) => {
