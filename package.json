@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "babel src -d lib",
+    "_build": "babel src -d lib",
     "start": "node ./lib/bin/run.js"
   },
   "devDependencies": {

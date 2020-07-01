@@ -7,7 +7,7 @@ ADD . /opt/app
 ENV NODE_ENV=production
 
 RUN npm install
-RUN npm run build
+# RUN npm run build
 
 EXPOSE 8080
 CMD ["npm", "start"]
