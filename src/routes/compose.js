@@ -3,12 +3,14 @@ import fs from 'fs';
 import path from 'path';
 import ffmpeg from 'fluent-ffmpeg';
 import async from 'async';
+import ffmpegPath from 'ffmpeg-static';
 
 import { VIDEOS } from '../data/data.js';
 
 const router = express.Router();
 
-if (process.env.ffmpeg) ffmpeg.setFfmpegPath(process.env.ffmpeg);
+// if (process.env.ffmpeg) ffmpeg.setFfmpegPath(process.env.ffmpeg);
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 // E_1~118001-5233_1~200701-3200_22~82012-8613_24~67207-11187_.mp4
 router.get('/:edl', (req, res) => {
